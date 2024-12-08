@@ -10,7 +10,7 @@ def view(site):
 serv = input("Input server address (leave blank to enter homepage): ")
 if serv == "":
     serv = "https://gurra-h.neocities.org"
-x = requests.get(serv + '/index.txtb')
+x = requests.get(serv + '/index.txt')
 view(x.text)
 
 
