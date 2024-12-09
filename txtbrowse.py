@@ -1,12 +1,12 @@
 import requests
 
-def view(site, links):
+def view(site, links, pages):
 
     print("-")
     print(site)
     print("-")
 
-    print("0: Exit 1: Home 2: page2")
+    print("0: Exit " + pages)
     #print(links)
     inputvar = int(input("Input: ")) - 1
     if inputvar < len(links) and inputvar > -1:
@@ -14,15 +14,21 @@ def view(site, links):
     else:
         return "exit"
 
-
 serv = input("Input server address (leave blank to enter homepage): ")
+
+#Redirect to txtbrowse homepage
 if serv == "":
     serv = "https://gurra-h.neocities.org"
+
+#Get site, links and pages
 x = requests.get(serv + '/index.txt')
-linkstxt = requests.get(serv + '/links.txt').text
+linkstxt = requests.get(serv + '/links.txt',).text
 links = linkstxt.split("\n")
-inputresult = view(x.text, links)
+pages = requests.get(serv + '/pages.txt',).text
+inputresult = view(x.text, links, pages)
+
+#Switch between pages
 while not inputresult == "exit":
-    inputresult = view(requests.get(inputresult).text, links)
+    inputresult = view(requests.get(inputresult).text, links, pages)
 
 input("Press enter to exit... ")
